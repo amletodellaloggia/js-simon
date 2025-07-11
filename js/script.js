@@ -25,26 +25,27 @@ function generateNumbers() {
     // Col for scorro i numeri generati, fermandomi a 5 (il numero richiesto in consegna)
     const num = getRandomInt(1, 30); // Creo la variabile num alla quale assegno il numero generato da getRandomInt, questo sarà tra 1 e 30 compresi
     generatedNumbers.push(num); // Pusho num in generatedNumbers per riutilizzo
-    const li = document.createElement("li"); // Creo l'elemento li
-    li.textContent = num; // Assegno il valore di num all'elemento li creato
-    numbersList.appendChild(li); // Appendo li a numbersList (che ha ul)
+    const li = document.createElement("li"); // Creo il tag <i> in HTML e la sua variabile
+    li.textContent = num; // Assegno il valore di num al contenuto testuale di li (variabile)
+    numbersList.appendChild(li); // Appendo li (e il suo contenuto) a numbersList (che ha ul)
   }
 }
 
 generateNumbers(); // Invoco la funzione definita che mostra immediatamente, all'apertura della pagina i 5 numeri random
 
-// Ho bisogno di mostrare un countdown che una volta raggiunto lo 0, nasconda i 5 numeri generati randomicamente, mostri il messaggio 'tempo scaduto' e mostri una form con 5 campi dove l'utente viene invitato a inserire 1 numero per campo inoltre viene mostrato il pulsante per inviare i numeri inseriti dall'utente
-
-let timeLeft = 10; // Dichiaro il timer e lo setto a 10 secondi
 
 // COUNTDOWN
 
+// Ho bisogno di mostrare un countdown che una volta raggiunto lo 0, nascondere i 5 numeri generati randomicamente, mostrare il messaggio 'tempo scaduto' e mostrare una form con 5 campi dove l'utente viene invitato a inserire 1 numero per campo inoltre viene mostrato il pulsante per inviare i numeri inseriti dall'utente
+
+let timeLeft = 10; // Dichiaro il timer e lo setto a 10 (secondi)
+
 // Creo la funzione startCountdown che gestisce il conto alla rovescia settato in timeLeft
 function startCountdown() {
-  countdownVar.textContent = timeLeft; // Mostro il valore di timeLeft nella pagina
+  countdownVar.textContent = timeLeft; // Il contenuto testuale di countdownVar conterrà il valore di timeLeft
 
   // Dichiaro variabile con funzione arrow che diminuisce il valore di timeLeft
-  const countdownInterval = setInterval(() => {
+  const countdownInterval = setInterval(() => { // Setto un interval
     timeLeft--; // Diminuisce valore di timeLeft
     countdownVar.textContent = timeLeft;
 
@@ -52,8 +53,8 @@ function startCountdown() {
       // Con if, se il valore di timeLeft è 0, allora :
       clearInterval(countdownInterval); // L'interval di 1000ms viene fermato
       countdownVar.textContent = "Tempo scaduto!"; // Mostro "Tempo Scaduto!" in HTML
-      numbersList.classList.add("d-none"); // Nascondo (aggiungendo d-none in class) la numbersList (quella generata prima randomicamente)
-      form.classList.remove("d-none"); // Mostro (rimuovendo d-none in class) la form dove l'utente inserirà i numeri
+      numbersList.classList.add("d-none"); // Nascondo la numbersList(aggiungendo d-none in class)
+      form.classList.remove("d-none"); // Mostro la form (rimuovendo d-none in class) dove l'utente inserirà i numeri
     }
   }, 1000); // Settando a 1000/ms l'intervallo si aggionerebbe ogni 1 secondo, ma grazie a clearInterval posso fermarlo al raggiungimento di 0 (descritto in if)
 }
@@ -62,13 +63,13 @@ startCountdown(); // Invoco la funzione definita che mostra immediatamente, all'
 
 // EVENT LISTENER SUBMIT
 
-// Ho bisogno di confrontare i numeri generati randomicamente prima che scadesse il tempo con i numeri che l'utente ha inserito:
+// Ho bisogno di confrontare i numeri generati randomicamente con i numeri che l'utente ha inserito:
 // 1. Al click del pulsante "Conferma" devo recuperare i numeri
-// 2. I numeri ottenuti devono finire in un array che scorro e paragono all'array con i numeri generati randomicamente
+// 2. I numeri ottenuti devono finire in un array che scorro e confronto con array dei numeri generati randomicamente
 // 3. Devo confrontare i numeri e verificare se corrispondono
 
 // Aggiungo un eventListener alla form dell'HTML, con funzione anonima
-form.addEventListener("submit", function (e) {
+form.addEventListener("submit", function (e) { // Submit è l'evento e rappresenta il type di button, che di default è submit se non specificato 
   e.preventDefault(); // Prevengo il refresh
 
   // Dichiaro le variabili che mi servivranno:
@@ -76,10 +77,10 @@ form.addEventListener("submit", function (e) {
 
   const userNumbers = []; // Creo array vuoto per i numeri dell'utente
   for (let i = 0; i < inputs.length; i++) {
-    userNumbers.push(parseInt(inputs[i].value)); // Inserisco ogni valore numerico dentro userNumbers
+    userNumbers.push(parseInt(inputs[i].value)); // Inserisco ogni valore numerico degli inputs in posizione [i] dentro userNumbers
   }
 
-  const guessed = []; // Creo array per i numeri indovinati
+  const guessed = []; // Creo array per contenere i numeri inseriti dall'utente
 
   // Confronto ogni numero dell'utente con quelli generati
   for (let i = 0; i < userNumbers.length; i++) {
@@ -101,12 +102,12 @@ form.addEventListener("submit", function (e) {
     for (let k = 0; k < guessed.length; k++) {
       // Scorro
       if (userNum === guessed[k]) {
-        // Se userNum è uguale a guessed in posizione [k] allora la variabile diventa true
+        // Se userNum è uguale a guessed in posizione [k] allora la variabile diventa true (è stato indovinato)
         guessedRight = true;
       }
     }
 
-    // Se è nei numeri generati e non è già stato aggiunto, lo pusho in guessed
+    // Se il numero si trova sia nei numeri generati e non è stato indovinato, pusho lo userNum in guessed 
     if (foundInGenerated === true && guessedRight === false) {
       guessed.push(userNum);
     }
@@ -118,7 +119,7 @@ form.addEventListener("submit", function (e) {
   // Il messaggio sarà diverso per il tipo di corrispondenza trovata tra i numeri random e i numeri inseriti dall'utente, e mostrerà in pagina quanti numeri sono stati indovinati e quali
   // Il messaggio sarà di colore diverso a seconda del match: totale, parziale o nessuno
 
-  message.classList.remove("text-danger", "text-warning", "text-success"); // Rimuovo tutti i colori precedenti
+  message.classList.remove("text-danger", "text-warning", "text-success"); // Pulisco i colori del testo
 
   // VERIFICA / AGGIUNTA COLORE TESTO CLASSLIST
 
