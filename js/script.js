@@ -124,13 +124,13 @@ form.addEventListener("submit", function (e) { // Submit è l'evento e rappresen
   // VERIFICA / AGGIUNTA COLORE TESTO CLASSLIST
 
   if (guessed.length === 5) {
-    // Se i numeri in guessed sono 5 allora:
+    // Se la lunghezza di guessed è uguale a 5:
     message.classList.add("text-success"); // Testo verde per un match al 100%
   } else if (guessed.length > 0) {
-    // Se i numeri in guessed sono più di 0 allora:
+    // Se la lunghezza di guessed è maggiore di 0:
     message.classList.add("text-warning"); // Testo giallo per un match parziale
   } else {
-    // Altrimenti se è diverso da entrambe le condizioni (0):
+    // Altrimenti se è 0:
     message.classList.add("text-danger"); // Testo rosso per nessun match
   }
 
@@ -138,15 +138,15 @@ form.addEventListener("submit", function (e) { // Submit è l'evento e rappresen
 
   // Mostro il messaggio con i numeri trovati tra parentesi tonde
   if (guessed.length > 0) {
-    // Se i numeri in guessed sono più di 0 allora:
+    // Se la lunghezza di guessed è maggiore di 0:
     message.innerHTML =
       "Hai indovinato " +
       guessed.length +
       " numero/i: (" +
       guessed.join(", ") +
-      ")"; // Concateno testo, contatore e il contenuto del contatore (numeri matchati) con il messaggio con un colore diverso a seconda del tipo di match
+      ")"; // In 'message' di HTML, concateno e aggiungo testo, lunghezza di guessed (contatore) e il contenuto del di guessed (numeri matchati) con il messaggio in caso di match totale o parziale
   } else {
-    // Altrimenti restituisco il messaggio
+    // Altrimenti se la lunghezza di guessed è 0, restituisco il messaggio per nessun match:
     message.innerHTML = "Hai indovinato 0 numero/i: (nessuno)";
   }
 });
