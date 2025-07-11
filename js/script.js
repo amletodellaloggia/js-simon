@@ -18,12 +18,12 @@ let generatedNumbers = [];
 
 // Creo un'altra funzione per prendere 5 numeri generati e inserirli direttamente in HTML
 function generateNumbers() {
-  numbersList.innerHTML = ""; // Setto il valore di numbersList vuoto per mostrare i numeri che verranno generati in HTML successivamente
-  generatedNumbers = []; // Setto generatedNumbers vuoto
+  numbersList.innerHTML = ""; // Setto numbersList vuoto per mostrare i numeri che verranno generati in HTML successivamente
+  generatedNumbers = []; // Resetto generatedNumbers (non voglio i valori vecchi per lavorare)
 
   for (let i = 0; i < 5; i++) {
     // Col for scorro i numeri generati, fermandomi a 5 (il numero richiesto in consegna)
-    const num = getRandomInt(1, 30); // Creo la variabile num alla quale assegno il risultato della funzione getRandomInt successivamente all'essermi fermato a 5 di quei numeri
+    const num = getRandomInt(1, 30); // Creo la variabile num alla quale assegno il numero generato da getRandomInt, questo sarà tra 1 e 30 compresi
     generatedNumbers.push(num); // Pusho num in generatedNumbers per riutilizzo
     const li = document.createElement("li"); // Creo l'elemento li
     li.textContent = num; // Assegno il valore di num all'elemento li creato
